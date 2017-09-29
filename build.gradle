@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+/*
+run {
+    workingDir = 'run'
+}
+*/
+
+dependencies {
+    compile project(':noise-engine')
+
+    // Use JUnit test framework
+    testCompile 'junit:junit:4.12'
+
+}
+
+// Define the main class for the application
+mainClassName = "de.nerogar.noiseTest.${demo}.Main"
