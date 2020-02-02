@@ -4,7 +4,9 @@ import de.nerogar.noise.Noise;
 import de.nerogar.noise.input.KeyboardKeyEvent;
 import de.nerogar.noise.input.MouseButtonEvent;
 import de.nerogar.noise.opencl.*;
-import de.nerogar.noise.render.*;
+import de.nerogar.noise.render.GLWindow;
+import de.nerogar.noise.render.RenderHelper;
+import de.nerogar.noise.render.Texture2D;
 import de.nerogar.noise.util.Logger;
 import de.nerogar.noise.util.Timer;
 import org.lwjgl.glfw.GLFW;
@@ -126,10 +128,10 @@ public class Main {
 			if (scrollDelta != 0 || xOffset != 0 || yOffset != 0 || posChanged) {
 				clKernelClearData.setArgBuffer(0, clBuddhaDataBuffer);
 				clKernelClearData.setArg1i(1, 0);
-				clKernelClearData.enqueueExecution(true);
+				clKernelClearData.enqueueExecution(true, true);
 				clKernelClearMap.setArgBuffer(0, clPropDataBuffer);
 				clKernelClearMap.setArg1i(1, 0);
-				clKernelClearMap.enqueueExecution(true);
+				clKernelClearMap.enqueueExecution(true, true);
 
 				x += xOffset * zoom * 0.01f;
 				y += yOffset * zoom * 0.01f;
@@ -160,15 +162,15 @@ public class Main {
 					clKernelLineSum.setArgBuffer(0, clPropDataBuffer);
 					clKernelLineSum.setArgBuffer(1, clPropDataSumBuffer);
 					clKernelLineSum.setArg1i(2, MAP_WIDTH);
-					clKernelLineSum.enqueueExecution(true);
+					clKernelLineSum.enqueueExecution(true, true);
 
 					clKernelLineNorm.setArgBuffer(0, clPropDataSumBuffer);
 					clKernelLineNorm.setArg1i(1, MAP_WIDTH);
-					clKernelLineNorm.enqueueExecution(true);
+					clKernelLineNorm.enqueueExecution(true, true);
 
 					clKernelClearData.setArgBuffer(0, clBuddhaDataBuffer);
 					clKernelClearData.setArg1i(1, 0);
-					clKernelClearData.enqueueExecution(true);
+					clKernelClearData.enqueueExecution(true, true);
 				}
 				currentCalcCernal = clKernelBuddhaBrotImportance;
 			}
@@ -182,24 +184,24 @@ public class Main {
 			currentCalcCernal.setArg2f(6, right, top);
 			currentCalcCernal.setArg1i(7, iterations);
 			currentCalcCernal.setArg4f(8, (float) Math.cos(tilt), (float) Math.sin(tilt), 0.0f, 0.0f);
-			currentCalcCernal.enqueueExecution(true);
+			currentCalcCernal.enqueueExecution(true, true);
 
 			int accumulateFrame = (frame > NAIVE_FRAMES ? frame - NAIVE_FRAMES : frame) + 1;
 			if (renderedTexture == 0) {
 				clKernelBlitTexture.setArgBuffer(0, clImageBuffer);
 				clKernelBlitTexture.setArgBuffer(1, clBuddhaDataBuffer);
 				clKernelBlitTexture.setArg1f(2, 1.0f / (accumulateFrame + 1) * 0.000008f / zoom / zoom);
-				clKernelBlitTexture.enqueueExecution(true);
+				clKernelBlitTexture.enqueueExecution(true, true);
 			} else if (renderedTexture == 1) {
 				clKernelBlitMap.setArgBuffer(0, clImageBuffer);
 				clKernelBlitMap.setArgBuffer(1, clPropDataBuffer);
 				clKernelBlitMap.setArg1f(2, 1.0f / (accumulateFrame + 1) * 1f);
-				clKernelBlitMap.enqueueExecution(true);
+				clKernelBlitMap.enqueueExecution(true, true);
 			} else {
 				clKernelBlitMap.setArgBuffer(0, clImageBuffer);
 				clKernelBlitMap.setArgBuffer(1, clPropDataSumBuffer);
 				clKernelBlitMap.setArg1f(2, 1f);
-				clKernelBlitMap.enqueueExecution(true);
+				clKernelBlitMap.enqueueExecution(true, true);
 			}
 
 			RenderHelper.blitTexture(imageTexture);
