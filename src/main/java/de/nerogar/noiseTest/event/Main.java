@@ -19,7 +19,7 @@ public class Main {
 	 * Entities near the moving bounding print their position to the console.
 	 */
 	public static void main(String[] args) {
-		eventManager = new EventManager();
+		eventManager = new EventManager("default");
 
 		Set<Entity> entities = new HashSet<>();
 

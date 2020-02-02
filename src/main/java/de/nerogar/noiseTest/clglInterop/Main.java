@@ -56,7 +56,7 @@ public class Main {
 		clKernel.setArgBuffer(0, clBuffer);
 		clKernel.setArg2f(1, gravityCenterX, gravityCenterY);
 		clKernel.setArg1f(2, gravity);
-		clKernel.enqueueExecution(true);
+		clKernel.enqueueExecution(true, true);
 
 		// render
 		shader.activate();
