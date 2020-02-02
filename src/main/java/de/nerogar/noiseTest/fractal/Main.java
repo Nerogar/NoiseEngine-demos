@@ -62,7 +62,7 @@ public class Main {
 		Logger.instance.addStream(Logger.WARNING, System.err);
 
 		//gl context
-		window = new GLWindow("particles", WIDTH, HEIGHT, false, -1, null, null);
+		window = new GLWindow("particles", WIDTH, HEIGHT, false, -1);
 		window.bind();
 
 		//cl context

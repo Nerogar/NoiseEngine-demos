@@ -21,5 +21,9 @@ dependencies {
 
 }
 
+if (!project.hasProperty("demo")) {
+    ext.demo = "clglInterop"
+}
+
 // Define the main class for the application
 mainClassName = "de.nerogar.noiseTest.${demo}.Main"

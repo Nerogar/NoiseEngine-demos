@@ -35,7 +35,7 @@ public class Main {
 		Noise.init();
 
 		// create the window
-		GLWindow window = new GLWindow("Title", 800, 600, true, 0, null, null);
+		GLWindow window = new GLWindow("Title", 800, 600, true, 0);
 
 		// create a projection matrix
 		Matrix4f projectionMatrix = Matrix4fUtils.getOrthographicProjection(0, 1, 1, 0, 1, -1);

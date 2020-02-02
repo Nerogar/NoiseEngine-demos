@@ -13,7 +13,7 @@ public class Main {
 		Noise.init();
 
 		// create the window
-		GLWindow window = new GLWindow("Title", 800, 600, true, 0, null, null);
+		GLWindow window = new GLWindow("Title", 800, 600, true, 0);
 
 		// main loop
 		Timer timer = new Timer();

@@ -70,7 +70,7 @@ public class Main {
 		Noise.init();
 
 		// create the window
-		GLWindow window = new GLWindow("Title", 1000, 1000, true, 0, null, null);
+		GLWindow window = new GLWindow("Title", 1000, 1000, true, 0);
 		CLContext clContext = new CLContext(window.getGLContext());
 
 		Matrix4f projectionMatrix = Matrix4fUtils.getOrthographicProjection(0, 1, 1, 0, 1, -1);
